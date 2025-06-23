@@ -1,0 +1,25 @@
+import type { Metadata } from 'next'
+import { Analytics } from "@vercel/analytics/react"
+import './globals.css'
+
+export const metadata: Metadata = {
+  title:  'Nequi',
+  description: 'Sistema de educación financiera ',
+}
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode
+}>) {
+  return (
+    <html lang="en">
+      <head>
+        <title>Nequi</title>
+        <link rel="icon" href="/img/icon-logo.png" type="image/png" />
+      </head>
+      <body>{children}</body>
+      <Analytics />
+    </html>
+  )
+}
