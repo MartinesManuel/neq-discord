@@ -14,9 +14,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <link rel="icon" href="/img/icon-logo.png" type="image/png" />  
       <head>
+        
         <title>Nequi</title>
-        <link rel="icon" href="/img/icon-logo.png" type="image/png" />
+        
       </head>
       <body>{children}</body>
       <Analytics />

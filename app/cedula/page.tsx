@@ -72,7 +72,11 @@ const InicioCredito: React.FC = () => {
                                 className="peer w-full bg-transparent border border-[#200020] text-[#200020] p-3 rounded focus:outline-none focus:border-[#da0081]"
                                 placeholder=" "
                                 value={nombreApellido}
-                                onChange={(e) => setNombreApellido(e.target.value)}
+                                onChange={(e) => {
+                                    // Solo permite letras (mayúsculas, minúsculas), tildes y espacios
+                                    const value = e.target.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, "");
+                                    setNombreApellido(value);
+                                }}
                                 required
                             />
                             <label

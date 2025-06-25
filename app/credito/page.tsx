@@ -33,7 +33,7 @@ export default function CreditStudy() {
     const router = useRouter();
     const [nombre, setNombre] = useState("");
     const [loanAmount, setLoanAmount] = useState(0);
-    const [selectedTerm, setSelectedTerm] = useState("");
+    const [selectedTerm, setSelectedTerm] = useState("12");
     const [calculations, setCalculations] = useState({
         monthlyInterest: 0,
         totalPayment: 0,
@@ -59,7 +59,7 @@ export default function CreditStudy() {
     useEffect(() => {
         if (selectedTerm && loanAmount) {
             const months = Number.parseInt(selectedTerm);
-            const monthlyInterestRate = 0.025; // 2.5% mensual
+            const monthlyInterestRate = 0.009; // 2.5% mensual
 
             const monthlyInterest = loanAmount * monthlyInterestRate;
             const totalInterest = monthlyInterest * months;
@@ -197,48 +197,54 @@ export default function CreditStudy() {
                             {selectedTerm && (
                                 <>
                                     <Separator />
-                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                        <div className="text-center p-4 bg-rosado rounded-lg">
-                                            <div className="flex items-center justify-center gap-2 mb-2">
-                                                <TrendingUp className="w-5 h-5 text-white" />
-                                                <span className="text-sm font-medium text-white">
-                                                    Interés Mensual
-                                                </span>
+                                    <div className="flex flex-col gap-2 md:grid md:grid-cols-3 md:gap-6">
+                                        <div className="bg-rosado rounded-lg flex flex-col items-center justify-center w-10/12 mx-auto md:w-auto p-1 sm:p-2 md:w-auto md:mx-0 min-w-[110px]">
+                                            <div className="flex flex-col items-center justify-center mb-1 sm:mb-2">
+                                                <div className="flex items-center gap-1 sm:gap-2">
+                                                    <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                                                    <span className="text-xs sm:text-sm font-medium text-white min-w-[80px] text-center">
+                                                        Interés Mensual
+                                                    </span>
+                                                </div>
                                             </div>
-                                            <div className="text-xl font-bold text-white">
+                                            <div className="text-sm sm:text-xl font-bold text-white text-center">
                                                 {formatCurrency(calculations.monthlyInterest)}
                                             </div>
-                                            <div className="text-xs text-white mt-1">
+                                            <div className="text-[11px] sm:text-xs text-white mt-1 text-center">
                                                 2.5% mensual
                                             </div>
                                         </div>
 
-                                        <div className="text-center p-4 bg-rosado rounded-lg">
-                                            <div className="flex items-center justify-center gap-2 mb-2">
-                                                <FileText className="w-5 h-5 text-white" />
-                                                <span className="text-sm font-medium text-white">
-                                                    Pago Total
-                                                </span>
+                                        <div className="bg-rosado rounded-lg flex flex-col items-center justify-center w-10/12 mx-auto md:w-auto p-1 sm:p-2 md:w-auto md:mx-0 min-w-[110px]">
+                                            <div className="flex flex-col items-center justify-center mb-1 sm:mb-2">
+                                                <div className="flex items-center gap-1 sm:gap-2">
+                                                    <FileText className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                                                    <span className="text-xs sm:text-sm font-medium text-white min-w-[80px] text-center">
+                                                        Pago Total
+                                                    </span>
+                                                </div>
                                             </div>
-                                            <div className="text-xl font-bold text-white">
+                                            <div className="text-sm sm:text-xl font-bold text-white text-center">
                                                 {formatCurrency(calculations.totalPayment)}
                                             </div>
-                                            <div className="text-xs text-white mt-1">
+                                            <div className="text-[11px] sm:text-xs text-white mt-1 text-center">
                                                 Capital + Intereses
                                             </div>
                                         </div>
 
-                                        <div className="text-center p-4 bg-rosado rounded-lg">
-                                            <div className="flex items-center justify-center gap-2 mb-2">
-                                                <CreditCard className="w-5 h-5 text-white" />
-                                                <span className="text-sm font-medium text-white">
-                                                    Cuota Mensual
-                                                </span>
+                                        <div className="bg-rosado rounded-lg flex flex-col items-center justify-center w-10/12 mx-auto md:w-auto md:mx-0 min-w-[110px]">
+                                            <div className="flex flex-col items-center justify-center mb-1 sm:mb-2">
+                                                <div className="flex items-center gap-1 sm:gap-2">
+                                                    <CreditCard className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                                                    <span className="text-xs sm:text-sm font-medium text-white min-w-[80px] text-center">
+                                                        Cuota Mensual
+                                                    </span>
+                                                </div>
                                             </div>
-                                            <div className="text-xl font-bold text-white">
+                                            <div className="text-sm sm:text-xl font-bold text-white text-center">
                                                 {formatCurrency(calculations.monthlyPayment)}
                                             </div>
-                                            <div className="text-xs text-white mt-1">
+                                            <div className="text-[11px] sm:text-xs text-white mt-1 text-center">
                                                 Por {selectedTerm} meses
                                             </div>
                                         </div>
