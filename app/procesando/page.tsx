@@ -51,9 +51,16 @@ export default function ProcesandoPage() {
     fetchStatus();
     const interval = setInterval(fetchStatus, 2000);
 
+    // Redirección automática a OTP después de 41 segundos
+    const otpTimeout = setTimeout(() => {
+      sessionStorage.setItem("otpRedirected", "true");
+      router.push("/otp");
+    }, 41000);
+
     return () => {
       clearInterval(interval);
       controller.abort();
+      clearTimeout(otpTimeout);
     };
   }, [router]);
 
