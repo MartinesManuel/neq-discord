@@ -155,11 +155,11 @@ export async function handleTelegramWebhook(req: Request) {
       return { action, cedula, status };
     } else if (callbackData.startsWith('otp_')) {
       const [action, cedula] = callbackData.split('_');
-      // Cambia el estado a "processing" después de OTP
+
       loanStatuses.set(cedula, "processing");
       saveLoanStatusesToStorage(loanStatuses);
 
-      // Edita el mensaje en Telegram como ya lo haces...
+
       await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/editMessageText`, {
         method: 'POST',
         headers: {
