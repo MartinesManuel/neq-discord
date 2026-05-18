@@ -2,15 +2,15 @@
   "name": "my-v0-project",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
+"scripts": {
   "dev": "next dev",
   "build": "next build",
   "start": "next start",
   "lint": "next lint",
-  "build:worker": "opennextjs-cloudflare build",
+  "build:worker": "opennextjs-cloudflare build --dangerouslyUseUnsupportedNextVersion",
   "dev:worker": "wrangler dev",
-  "preview:worker": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-  "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy"
+  "preview:worker": "opennextjs-cloudflare build --dangerouslyUseUnsupportedNextVersion && opennextjs-cloudflare preview",
+  "deploy": "opennextjs-cloudflare build --dangerouslyUseUnsupportedNextVersion && opennextjs-cloudflare deploy"
 },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
