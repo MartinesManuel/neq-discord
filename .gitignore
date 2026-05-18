@@ -25,6 +25,10 @@ yarn-error.log*
 # cloudflare / opennext
 .open-next
 
+# ngrok
+ngrok
+ngrok.exe
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
